@@ -1,0 +1,18 @@
+<div class="row" style="margin-top: 5%;">
+    <h3>Blogsss</h3>
+    <div class="col-md-4">
+        {{#each randomArr as |blog|}}
+        <div class="card text-center" id="posts">
+            <div class="card-header" id="blog_title">{{blog.blog_title}}
+            </div>
+            <div class="card-body">
+                <p class="card-text" id="blog_content">{{blog.blog_content}}</p>
+                <a href="#" class="btn btn-primary" type="button">Edit</a>
+            </div>
+            <div class="card-footer text-muted">
+                {{user.user_id}}
+            </div>
+        </div>
+    </div>
+
+</div>

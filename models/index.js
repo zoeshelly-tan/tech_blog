@@ -8,7 +8,7 @@ User.hasMany(Blog, {
 
 Blog.belongsTo(User, {
     foreignKey: 'user_id',
-    as: 'reviewer'
+
 });
 
 

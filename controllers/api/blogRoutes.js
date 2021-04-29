@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const { Blog, User } = require('../../models');
 const sequelize = require('../../config/connection');
-const { route } = require('../../../../uadel-adel-fsf-pt-11-2020-u-c/week_13/01-Activities/28-Stu_Mini-Project/routes/api/locationsRoute');
+const withAuth = require('../../utils/auth');
 
 //Get all blogs
 router.get('/',async(req,res)=>{
@@ -16,7 +16,7 @@ router.get('/',async(req,res)=>{
 })
 
 //Get a single blog
-route.get('/:id',async(req,res)=>{
+router.get('/:id',async(req,res)=>{
     try{
         const blogData = await BlogData.findByPk(req.params.id,{
             include:[{model:User}],

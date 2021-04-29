@@ -1,12 +1,15 @@
 const createBlog = async(event) =>{
     event.preventDefault();
     const userId = event.target.id;
-    const comment = document.querySelector('#blog').value;
+    const comment = document.querySelector('#comment').value;
+    const title = document.querySelector('#reviewTitle').value;
 
 
-    const response = await fetch(`/api/blog/${userId}`,{
+    const response = await fetch(`/api/Blog`,{
         method:'POST',
-        body: JSON.stringify({comment,starRating}),
+        body: JSON.stringify({
+            blog_title:title,
+            blog_content:comment}),
         headers: { 'Content-Type': 'application/json'},
     });
 
@@ -17,4 +20,4 @@ const createBlog = async(event) =>{
     }
 };
 
-document.querySelector('.formSub').addEventListener('submit', createBlog);
+document.querySelector('#formSub').addEventListener('submit', createBlog);

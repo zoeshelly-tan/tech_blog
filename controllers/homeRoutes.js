@@ -8,7 +8,7 @@ router.get('/', async (req, res) => {
       include: [
         {
           model: User,
-          
+
         },
       ],
     });
@@ -17,9 +17,9 @@ router.get('/', async (req, res) => {
     const blogs = blogData.map((blog) => blog.get({ plain: true }));
 
     // Pass serialized data and session flag into template
-    res.render('homepage', { 
-      blogs, 
-      logged_in: req.session.logged_in 
+    res.render('homepage', {
+      blogs,
+      logged_in: req.session.logged_in
     });
   } catch (err) {
     console.log(err);
@@ -44,26 +44,28 @@ router.get('/blog/:id', async (req, res) => {
       logged_in: req.session.logged_in
     });
   } catch (err) {
+    console.log(err)
     res.status(500).json(err);
   }
 });
 
 // Use withAuth middleware to prevent access to route
-router.get('/profile', withAuth, async (req, res) => {
+router.get('/dashboard', withAuth, async (req, res) => {
   try {
     // Find the logged in user based on the session ID
     const userData = await User.findByPk(req.session.user_id, {
       attributes: { exclude: ['password'] },
-      include: [{ model: blog }],
+      include: [{ model: Blog }],
     });
 
     const user = userData.get({ plain: true });
 
-    res.render('profile', {
+    res.render('dashboard', {
       ...user,
       logged_in: true
     });
   } catch (err) {
+    console.log(err);
     res.status(500).json(err);
   }
 });
@@ -71,11 +73,21 @@ router.get('/profile', withAuth, async (req, res) => {
 router.get('/login', (req, res) => {
   // If the user is already logged in, redirect the request to another route
   if (req.session.logged_in) {
-    res.redirect('/profile');
+    res.redirect('/dashboard');
     return;
   }
-
-  res.render('writeBlog');
+  else {
+    res.render('login');
+  }
 });
+
+router.get("/signup", (req, res) => {
+  res.status(200).render('signup');
+})
+
+router.get("/login",(req,res)=>{
+  res.status(200).render('login')
+})
+
 
 module.exports = router;

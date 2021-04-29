@@ -35,7 +35,8 @@ router.get('/:id',async(req,res)=>{
 router.post('/', withAuth,  async (req, res) => {
     try {
         const newBlogData = await Blog.create({
-            blog: req.body.comment,
+            blog_title:req.body.blog_title,
+            blog_content: req.body.blog_content,
             user_id: req.session.user_id,
         });
         console.log(newBlogData);

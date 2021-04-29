@@ -49,7 +49,7 @@ router.post("/login", async (req, res) => {
       req.session.loggedIn = true;
       res
         .status(200)
-        .json({ user: dbUserData, message: "You are now logged in!" });
+        .json({ user: UserData, message: "You are now logged in!" });
     });
 
   } catch (err) {
@@ -68,5 +68,7 @@ router.post("/logout", (req, res) => {
     res.status(404).end();
   }
 });
+
+
 
 module.exports = router;
